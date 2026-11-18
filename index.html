@@ -149,6 +149,26 @@
       color: var(--taupe);
     }
   </style>
+      .fiche {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      background: var(--beige-clair);
+      border-radius: 22px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+    .fiche img {
+      width: 220px;
+      max-width: 40%;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(92, 75, 59, .15);
+    }
+    .fiche p { margin: 0; }
+    @media (max-width: 640px) {
+      .fiche { flex-direction: column; }
+      .fiche img { max-width: 100%; width: 100%; }
+    }
 </head>
 <body>
 
@@ -224,14 +244,28 @@
     <h3>Résultats</h3>
     <p>Écris ici les résultats.</p>
   </section>
-
+  
   <!-- SEMAINE 46 -->
   <section id="s46" class="onglet">
     <h2>Semaine 46</h2>
-    <h3>Ce qu'on a fait</h3>
-    <p>Écris ici ce qui a été réalisé.</p>
-    <h3>Résultats</h3>
-    <p>Écris ici les résultats.</p>
+
+    <h3>Mardi : réunion de l'équipe</h3>
+
+    <div class="fiche">
+      <img src="photos/amoxicilline.jpg" alt="Amoxicilline">
+      <p>L’amoxicilline est un antibiotique appartenant à la famille des pénicillines. Elle agit en empêchant les bactéries de fabriquer leur paroi protectrice, ce qui entraîne leur destruction. Elle est utilisée pour traiter différentes infections bactériennes, notamment les infections ORL (angines bactériennes, otites, sinusites), respiratoires, dentaires et certaines infections urinaires. Elle est cependant inefficace contre les virus, comme ceux responsables du rhume ou de la grippe.</p>
+    </div>
+
+    <div class="fiche">
+      <img src="photos/amoxicillineacideclav.jpg" alt="Amoxicilline et acide clavulanique">
+      <p>L’amoxicilline associée à l’acide clavulanique est un antibiotique composé de deux substances actives. L’amoxicilline détruit les bactéries, tandis que l’acide clavulanique bloque certaines enzymes bactériennes appelées bêta-lactamases, capables de rendre les bactéries résistantes à l’amoxicilline. Cette association permet donc d'élargir le spectre d'action de l'antibiotique et de traiter certaines infections causées par des bactéries résistantes à l'amoxicilline seule.</p>
+    </div>
+
+    <h3>Découverte de notre collecte</h3>
+    <p>Écris ici le détail de la collecte.</p>
+
+    <h3>Mise en place du protocole d'antibiogramme sur plaque</h3>
+    <p>Écris ici le détail du protocole.</p>
   </section>
 
   <!-- SEMAINE 47 -->
