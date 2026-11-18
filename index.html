@@ -25,10 +25,76 @@
       color: var(--brun);
       line-height: 1.7;
     }
-    header {
-      text-align: center;
-      padding: 60px 20px 30px;
+
+    /* ---------- MENU DÉROULANT ---------- */
+    .barre { padding: 18px 24px; }
+    .menu { position: relative; display: inline-block; }
+    .menu-bouton {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--brun);
+      background: var(--beige-carte);
+      border: 1px solid var(--sable);
+      border-radius: 999px;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(92, 75, 59, .08);
+      transition: all .2s ease;
     }
+    .menu-bouton:hover { border-color: var(--terre); }
+    .fleche { transition: transform .25s ease; font-size: 11px; color: var(--taupe); }
+    .menu.ouvert .menu-bouton .fleche { transform: rotate(180deg); }
+
+    .menu-liste {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 260px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: var(--beige-carte);
+      border: 1px solid var(--sable);
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 14px 34px rgba(92, 75, 59, .18);
+      z-index: 100;
+    }
+    .menu.ouvert .menu-liste { display: block; }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--brun);
+      background: transparent;
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .menu-item:hover { background: var(--beige-clair); }
+    .menu-item.actif { background: var(--terre); color: #fff; }
+
+    .sous-liste {
+      display: none;
+      margin: 4px 0 6px 12px;
+      padding-left: 8px;
+      border-left: 2px solid var(--sable);
+    }
+    .groupe.ouvert .sous-liste { display: block; }
+    .groupe.ouvert > .menu-item .fleche { transform: rotate(180deg); }
+    .sous-liste .menu-item { font-size: 14px; padding: 8px 12px; }
+
+    /* ---------- EN-TÊTE ---------- */
+    header { text-align: center; padding: 20px 20px 30px; }
     header .petit {
       text-transform: uppercase;
       letter-spacing: 3px;
@@ -45,37 +111,9 @@
       margin: 0 auto;
       color: var(--brun);
     }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      padding: 20px 16px;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-    nav button {
-      border: none;
-      background: var(--beige-clair);
-      color: var(--brun);
-      padding: 10px 20px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 14px;
-      transition: all .25s ease;
-    }
-    nav button:hover { background: var(--sable); }
-    nav button.actif {
-      background: var(--terre);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(169, 132, 103, .35);
-    }
-    main {
-      max-width: 880px;
-      margin: 10px auto 60px;
-      padding: 0 16px;
-    }
+
+    /* ---------- CONTENU ---------- */
+    main { max-width: 880px; margin: 10px auto 60px; padding: 0 16px; }
     .onglet {
       display: none;
       background: var(--beige-carte);
@@ -114,30 +152,48 @@
 </head>
 <body>
 
+<div class="barre">
+  <div class="menu" id="menu">
+    <button class="menu-bouton" onclick="basculerMenu(event)">
+      <span id="titre-menu">Accueil</span>
+      <span class="fleche">▼</span>
+    </button>
+
+    <div class="menu-liste">
+      <button class="menu-item actif" data-cible="accueil" onclick="afficher('accueil', 'Accueil', this)">Accueil</button>
+
+      <div class="groupe" id="groupe-tableau">
+        <button class="menu-item" onclick="basculerGroupe(event)">
+          <span>Tableau de bord</span>
+          <span class="fleche">▼</span>
+        </button>
+        <div class="sous-liste">
+          <button class="menu-item" onclick="afficher('s36-39', 'Semaines 36 à 39', this)">Semaines 36 à 39</button>
+          <button class="menu-item" onclick="afficher('s40-45', 'Semaines 40 à 45', this)">Semaines 40 à 45</button>
+          <button class="menu-item" onclick="afficher('s46', 'Semaine 46', this)">Semaine 46</button>
+          <button class="menu-item" onclick="afficher('s47', 'Semaine 47', this)">Semaine 47</button>
+          <button class="menu-item" onclick="afficher('s48', 'Semaine 48', this)">Semaine 48</button>
+          <button class="menu-item" onclick="afficher('s49-1', 'Semaines 49 à 1', this)">Semaines 49 à 1</button>
+          <button class="menu-item" onclick="afficher('s2', 'Semaine 2', this)">Semaine 2</button>
+          <button class="menu-item" onclick="afficher('s3', 'Semaine 3', this)">Semaine 3</button>
+          <button class="menu-item" onclick="afficher('s4', 'Semaine 4', this)">Semaine 4</button>
+          <button class="menu-item" onclick="afficher('s5-10', 'Semaines 5 à 10', this)">Semaines 5 à 10</button>
+          <button class="menu-item" onclick="afficher('s11', 'Semaine 11', this)">Semaine 11</button>
+          <button class="menu-item" onclick="afficher('s12', 'Semaine 12', this)">Semaine 12</button>
+          <button class="menu-item" onclick="afficher('s13', 'Semaine 13', this)">Semaine 13</button>
+          <button class="menu-item" onclick="afficher('s14-19', 'Semaines 14 à 19', this)">Semaines 14 à 19</button>
+          <button class="menu-item" onclick="afficher('s20', 'Semaine 20', this)">Semaine 20</button>
+          <button class="menu-item" onclick="afficher('s21', 'Semaine 21', this)">Semaine 21</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <header>
   <div class="petit">Projet tutoré</div>
   <h1>Les antibiotiques perdent-ils réellement leur efficacité après la date de péremption ?</h1>
 </header>
-
-<nav>
-  <button class="actif" onclick="afficher('accueil', this)">Accueil</button>
-  <button onclick="afficher('s36-39', this)">Semaines 36 à 39</button>
-  <button onclick="afficher('s40-45', this)">Semaines 40 à 45</button>
- <button onclick="afficher('s46', this)">Semaine 46</button>
-<button onclick="afficher('s47', this)">Semaine 47</button>
-<button onclick="afficher('s48', this)">Semaine 48</button>
-  <button onclick="afficher('s49-1', this)">Semaines 49 à 1</button>
-  <button onclick="afficher('s2', this)">Semaine 2</button>
-  <button onclick="afficher('s3', this)">Semaine 3</button>
-  <button onclick="afficher('s4', this)">Semaine 4</button>
-  <button onclick="afficher('s5-10', this)">Semaines 5 à 10</button>
-  <button onclick="afficher('s11', this)">Semaine 11</button>
-  <button onclick="afficher('s12', this)">Semaine 12</button>
-  <button onclick="afficher('s13', this)">Semaine 13</button>
-  <button onclick="afficher('s14-19', this)">Semaines 14 à 19</button>
-  <button onclick="afficher('s20', this)">Semaine 20</button>
-  <button onclick="afficher('s21', this)">Semaine 21</button>
-</nav>
 
 <main>
 
@@ -300,12 +356,33 @@
 <footer>Suivi des expérimentations</footer>
 
 <script>
-  function afficher(id, bouton) {
-    document.querySelectorAll('.onglet').forEach(o => o.classList.remove('visible'));
-    document.querySelectorAll('nav button').forEach(b => b.classList.remove('actif'));
+  var menu = document.getElementById('menu');
+  var groupe = document.getElementById('groupe-tableau');
+
+  function basculerMenu(e) {
+    e.stopPropagation();
+    menu.classList.toggle('ouvert');
+  }
+
+  function basculerGroupe(e) {
+    e.stopPropagation();
+    groupe.classList.toggle('ouvert');
+  }
+
+  function afficher(id, titre, bouton) {
+    document.querySelectorAll('.onglet').forEach(function (o) { o.classList.remove('visible'); });
+    document.querySelectorAll('.menu-item').forEach(function (b) { b.classList.remove('actif'); });
     document.getElementById(id).classList.add('visible');
     bouton.classList.add('actif');
+    document.getElementById('titre-menu').textContent = titre;
+    menu.classList.remove('ouvert');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Ferme le menu quand on clique ailleurs sur la page
+  document.addEventListener('click', function (e) {
+    if (!menu.contains(e.target)) menu.classList.remove('ouvert');
+  });
 </script>
 
 </body>
