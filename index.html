@@ -2,10 +2,74 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Mon site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tableau de bord des expérimentations</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+    header { background: #1f4e79; color: white; padding: 20px; text-align: center; }
+    nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; background: #fff; border-bottom: 1px solid #ddd; }
+    nav button { border: none; background: #e6ecf2; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 15px; }
+    nav button:hover { background: #d3dfeb; }
+    nav button.actif { background: #1f4e79; color: white; }
+    main { max-width: 900px; margin: 20px auto; padding: 0 16px; }
+    .onglet { display: none; background: white; padding: 20px; border-radius: 8px; }
+    .onglet.visible { display: block; }
+    video { width: 100%; border-radius: 8px; }
+    h2 { color: #1f4e79; }
+  </style>
 </head>
 <body>
-  <h1>Bonjour !</h1>
-  <p>Mon premier site sur GitHub Pages.</p>
+
+<header>
+  <h1>Tableau de bord de nos expérimentations</h1>
+</header>
+
+<nav>
+  <button class="actif" onclick="afficher('accueil', this)">Accueil</button>
+  <button onclick="afficher('s46', this)">Semaine 46</button>
+  <button onclick="afficher('s47', this)">Semaine 47</button>
+</nav>
+
+<main>
+
+  <!-- ACCUEIL -->
+  <section id="accueil" class="onglet visible">
+    <h2>Bienvenue</h2>
+    <p>Retrouvez ici le suivi de nos expérimentations, semaine par semaine.</p>
+    <video controls>
+      <source src="videos/ma-video.mp4" type="video/mp4">
+      Ton navigateur ne supporte pas la lecture vidéo.
+    </video>
+  </section>
+
+  <!-- SEMAINE 46 -->
+  <section id="s46" class="onglet">
+    <h2>Semaine 46</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé cette semaine.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 47 -->
+  <section id="s47" class="onglet">
+    <h2>Semaine 47</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé cette semaine.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+</main>
+
+<script>
+  function afficher(id, bouton) {
+    document.querySelectorAll('.onglet').forEach(o => o.classList.remove('visible'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('actif'));
+    document.getElementById(id).classList.add('visible');
+    bouton.classList.add('actif');
+  }
+</script>
+
 </body>
 </html>
