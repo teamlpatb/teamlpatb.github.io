@@ -3,25 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tableau de bord des expérimentations</title>
+  <title>Les antibiotiques perdent-ils leur efficacité après péremption ?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
-    header { background: #1f4e79; color: white; padding: 20px; text-align: center; }
-    nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; background: #fff; border-bottom: 1px solid #ddd; }
-    nav button { border: none; background: #e6ecf2; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 15px; }
-    nav button:hover { background: #d3dfeb; }
-    nav button.actif { background: #1f4e79; color: white; }
-    main { max-width: 900px; margin: 20px auto; padding: 0 16px; }
-    .onglet { display: none; background: white; padding: 20px; border-radius: 8px; }
+    :root {
+      --beige-fond: #f3ece2;
+      --beige-carte: #faf6f0;
+      --beige-clair: #e9dfd0;
+      --sable: #d8c7b0;
+      --taupe: #8c7b6a;
+      --brun: #5c4b3b;
+      --terre: #a98467;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      margin: 0;
+      background: var(--beige-fond);
+      color: var(--brun);
+      line-height: 1.7;
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    header .petit {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      color: var(--taupe);
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(26px, 5vw, 44px);
+      line-height: 1.25;
+      max-width: 780px;
+      margin: 0 auto;
+      color: var(--brun);
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 16px;
+    }
+    nav button {
+      border: none;
+      background: var(--beige-clair);
+      color: var(--brun);
+      padding: 10px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      transition: all .25s ease;
+    }
+    nav button:hover { background: var(--sable); }
+    nav button.actif {
+      background: var(--terre);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(169, 132, 103, .35);
+    }
+    main {
+      max-width: 880px;
+      margin: 10px auto 60px;
+      padding: 0 16px;
+    }
+    .onglet {
+      display: none;
+      background: var(--beige-carte);
+      padding: 34px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(92, 75, 59, .08);
+    }
     .onglet.visible { display: block; }
-    video { width: 100%; border-radius: 8px; }
-    h2 { color: #1f4e79; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 28px;
+      margin-top: 0;
+      color: var(--brun);
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: var(--terre);
+      margin-top: 28px;
+    }
+    video {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 16px;
+      box-shadow: 0 8px 24px rgba(92, 75, 59, .15);
+    }
+    footer {
+      text-align: center;
+      padding-bottom: 40px;
+      font-size: 12px;
+      color: var(--taupe);
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Tableau de bord de nos expérimentations</h1>
+  <div class="petit">Projet tutoré</div>
+  <h1>Les antibiotiques perdent-ils réellement leur efficacité après la date de péremption ?</h1>
 </header>
 
 <nav>
@@ -61,6 +154,8 @@
   </section>
 
 </main>
+
+<footer>Suivi des expérimentations</footer>
 
 <script>
   function afficher(id, bouton) {
