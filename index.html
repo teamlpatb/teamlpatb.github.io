@@ -1,102 +1,670 @@
-/* ---------- PROTOCOLE ---------- */
-.protocole-titre {
-  margin-top: 44px;
-  padding-top: 28px;
-  border-top: 1px solid var(--sable);
-}
-h4 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  font-size: 18px;
-  color: var(--brun);
-  margin: 0 0 6px;
-}
-.sous-titre-protocole {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  font-size: 22px;
-  color: var(--brun);
-  margin: 40px 0 8px;
-}
-.bloc {
-  background: var(--beige-clair);
-  border-radius: 22px;
-  padding: 22px 24px;
-  margin: 16px 0;
-}
-.bloc > p { margin: 6px 0 0; }
-.bloc ul, .bloc ol, .etape ul, .etape ol {
-  margin: 10px 0 0;
-  padding-left: 22px;
-}
-.bloc li, .etape li { margin-bottom: 6px; }
-.bloc li::marker, .etape li::marker { color: var(--terre); }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les antibiotiques perdent-ils leur efficacité après péremption ?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --beige-fond: #f3ece2;
+      --beige-carte: #faf6f0;
+      --beige-clair: #e9dfd0;
+      --sable: #d8c7b0;
+      --taupe: #8c7b6a;
+      --brun: #5c4b3b;
+      --terre: #a98467;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      margin: 0;
+      background: var(--beige-fond);
+      color: var(--brun);
+      line-height: 1.7;
+    }
 
-.etiquette {
-  display: inline-block;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--taupe);
-  margin-bottom: 8px;
-}
-.puces { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.puce {
-  background: var(--beige-carte);
-  border: 1px solid var(--sable);
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 14px;
-  font-weight: 400;
-}
+    /* ---------- MENU DÉROULANT ---------- */
+    .barre { padding: 18px 24px; }
+    .menu { position: relative; display: inline-block; }
+    .menu-bouton {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--brun);
+      background: var(--beige-carte);
+      border: 1px solid var(--sable);
+      border-radius: 999px;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(92, 75, 59, .08);
+      transition: all .2s ease;
+    }
+    .menu-bouton:hover { border-color: var(--terre); }
+    .fleche { transition: transform .25s ease; font-size: 11px; color: var(--taupe); }
+    .menu.ouvert .menu-bouton .fleche { transform: rotate(180deg); }
 
-.encart {
-  background: var(--beige-carte);
-  border-left: 4px solid var(--terre);
-  border-radius: 0 14px 14px 0;
-  padding: 12px 16px;
-  margin: 14px 0 0;
-  font-size: 14.5px;
-}
-.encart strong { font-weight: 500; }
+    .menu-liste {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 260px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: var(--beige-carte);
+      border: 1px solid var(--sable);
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 14px 34px rgba(92, 75, 59, .18);
+      z-index: 100;
+    }
+    .menu.ouvert .menu-liste { display: block; }
 
-.etape {
-  background: var(--beige-clair);
-  border-radius: 22px;
-  padding: 22px 24px;
-  margin: 16px 0;
-}
-.etape-tete {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 8px;
-}
-.num {
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--terre);
-  color: #fff;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.etape-tete h4 { margin: 0; }
-.etape-tete small {
-  display: block;
-  font-size: 12px;
-  color: var(--taupe);
-  font-weight: 300;
-}
-.etape strong, .bloc strong { font-weight: 500; }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--brun);
+      background: transparent;
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .menu-item:hover { background: var(--beige-clair); }
+    .menu-item.actif { background: var(--terre); color: #fff; }
 
-.fiche p { margin: 0; }
-@media (max-width: 640px) {
-  .onglet { padding: 22px 18px; }
-  .fiche { flex-direction: column; }
-  .fiche img { max-width: 100%; width: 100%; }
-  .bloc, .etape { padding: 18px; }
-}
+    .sous-liste {
+      display: none;
+      margin: 4px 0 6px 12px;
+      padding-left: 8px;
+      border-left: 2px solid var(--sable);
+    }
+    .groupe.ouvert .sous-liste { display: block; }
+    .groupe.ouvert > .menu-item .fleche { transform: rotate(180deg); }
+    .sous-liste .menu-item { font-size: 14px; padding: 8px 12px; }
+
+    /* ---------- EN-TÊTE ---------- */
+    header { text-align: center; padding: 20px 20px 30px; }
+    header .petit {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      color: var(--taupe);
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: clamp(26px, 5vw, 44px);
+      line-height: 1.25;
+      max-width: 780px;
+      margin: 0 auto;
+      color: var(--brun);
+    }
+
+    /* ---------- CONTENU ---------- */
+    main { max-width: 880px; margin: 10px auto 60px; padding: 0 16px; }
+    .onglet {
+      display: none;
+      background: var(--beige-carte);
+      padding: 34px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(92, 75, 59, .08);
+    }
+    .onglet.visible { display: block; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 28px;
+      margin-top: 0;
+      color: var(--brun);
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: var(--terre);
+      margin-top: 28px;
+    }
+    video {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 16px;
+      box-shadow: 0 8px 24px rgba(92, 75, 59, .15);
+    }
+    footer {
+      text-align: center;
+      padding-bottom: 40px;
+      font-size: 12px;
+      color: var(--taupe);
+    }
+
+    /* ---------- FICHES PHOTO + TEXTE ---------- */
+    .fiche {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      background: var(--beige-clair);
+      border-radius: 22px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+    .fiche img {
+      width: 220px;
+      max-width: 40%;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(92, 75, 59, .15);
+    }
+    .fiche p { margin: 0; }
+
+    /* ---------- PROTOCOLE ---------- */
+    .protocole-titre {
+      margin-top: 44px;
+      padding-top: 28px;
+      border-top: 1px solid var(--sable);
+    }
+    h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 18px;
+      color: var(--brun);
+      margin: 0 0 6px;
+    }
+    .sous-titre-protocole {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--brun);
+      margin: 40px 0 8px;
+    }
+    .bloc {
+      background: var(--beige-clair);
+      border-radius: 22px;
+      padding: 22px 24px;
+      margin: 16px 0;
+    }
+    .bloc > p { margin: 6px 0 0; }
+    .bloc ul, .bloc ol, .etape ul, .etape ol {
+      margin: 10px 0 0;
+      padding-left: 22px;
+    }
+    .bloc li, .etape li { margin-bottom: 6px; }
+    .bloc li::marker, .etape li::marker { color: var(--terre); }
+
+    .etiquette {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--taupe);
+      margin-bottom: 8px;
+    }
+    .puces { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .puce {
+      background: var(--beige-carte);
+      border: 1px solid var(--sable);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .encart {
+      background: var(--beige-clair);
+      border-left: 4px solid var(--terre);
+      border-radius: 0 14px 14px 0;
+      padding: 14px 18px;
+      margin: 14px 0 0;
+      font-size: 14.5px;
+    }
+    .encart strong { font-weight: 500; }
+
+    .etape {
+      background: var(--beige-clair);
+      border-radius: 22px;
+      padding: 22px 24px;
+      margin: 16px 0;
+    }
+    .etape-tete {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .num {
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--terre);
+      color: #fff;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .etape-tete h4 { margin: 0; }
+    .etape-tete small {
+      display: block;
+      font-size: 12px;
+      color: var(--taupe);
+      font-weight: 300;
+    }
+    .etape strong, .bloc strong { font-weight: 500; }
+    .etape > p { margin: 6px 0 0; }
+
+    .plaque {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 12px;
+      font-size: 13.5px;
+      background: var(--beige-carte);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--sable);
+    }
+    .plaque th, .plaque td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--sable);
+    }
+    .plaque th { background: var(--sable); font-weight: 500; }
+    .plaque tr:last-child td { border-bottom: none; }
+    .plaque td:first-child { font-weight: 500; white-space: nowrap; }
+    .rouge { color: #b23a3a; font-weight: 500; }
+    .tableau-scroll { overflow-x: auto; }
+
+    @media (max-width: 640px) {
+      .onglet { padding: 22px 18px; }
+      .fiche { flex-direction: column; }
+      .fiche img { max-width: 100%; width: 100%; }
+      .bloc, .etape { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="barre">
+  <div class="menu" id="menu">
+    <button class="menu-bouton" onclick="basculerMenu(event)">
+      <span id="titre-menu">Accueil</span>
+      <span class="fleche">▼</span>
+    </button>
+
+    <div class="menu-liste">
+      <button class="menu-item actif" data-cible="accueil" onclick="afficher('accueil', 'Accueil', this)">Accueil</button>
+
+      <div class="groupe" id="groupe-tableau">
+        <button class="menu-item" onclick="basculerGroupe(event)">
+          <span>Tableau de bord</span>
+          <span class="fleche">▼</span>
+        </button>
+        <div class="sous-liste">
+          <button class="menu-item" onclick="afficher('s36-39', 'Semaines 36 à 39', this)">Semaines 36 à 39</button>
+          <button class="menu-item" onclick="afficher('s40-45', 'Semaines 40 à 45', this)">Semaines 40 à 45</button>
+          <button class="menu-item" onclick="afficher('s46', 'Semaine 46', this)">Semaine 46</button>
+          <button class="menu-item" onclick="afficher('s47', 'Semaine 47', this)">Semaine 47</button>
+          <button class="menu-item" onclick="afficher('s48', 'Semaine 48', this)">Semaine 48</button>
+          <button class="menu-item" onclick="afficher('s49-1', 'Semaines 49 à 1', this)">Semaines 49 à 1</button>
+          <button class="menu-item" onclick="afficher('s2', 'Semaine 2', this)">Semaine 2</button>
+          <button class="menu-item" onclick="afficher('s3', 'Semaine 3', this)">Semaine 3</button>
+          <button class="menu-item" onclick="afficher('s4', 'Semaine 4', this)">Semaine 4</button>
+          <button class="menu-item" onclick="afficher('s5-10', 'Semaines 5 à 10', this)">Semaines 5 à 10</button>
+          <button class="menu-item" onclick="afficher('s11', 'Semaine 11', this)">Semaine 11</button>
+          <button class="menu-item" onclick="afficher('s12', 'Semaine 12', this)">Semaine 12</button>
+          <button class="menu-item" onclick="afficher('s13', 'Semaine 13', this)">Semaine 13</button>
+          <button class="menu-item" onclick="afficher('s14-19', 'Semaines 14 à 19', this)">Semaines 14 à 19</button>
+          <button class="menu-item" onclick="afficher('s20', 'Semaine 20', this)">Semaine 20</button>
+          <button class="menu-item" onclick="afficher('s21', 'Semaine 21', this)">Semaine 21</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="petit">Projet tutoré</div>
+  <h1>Les antibiotiques perdent-ils réellement leur efficacité après la date de péremption ?</h1>
+</header>
+
+<main>
+
+  <!-- ACCUEIL -->
+  <section id="accueil" class="onglet visible">
+    <h2>Bienvenue</h2>
+    <p>Retrouvez ici le suivi de nos expérimentations, semaine par semaine.</p>
+    <video controls>
+      <source src="videos/presentationprojettutore.mp4" type="video/mp4">
+      Ton navigateur ne supporte pas la lecture vidéo.
+    </video>
+  </section>
+
+  <!-- SEMAINES 36 à 39 -->
+  <section id="s36-39" class="onglet">
+    <h2>Semaines 36 à 39</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINES 40 à 45 -->
+  <section id="s40-45" class="onglet">
+    <h2>Semaines 40 à 45</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 46 -->
+  <section id="s46" class="onglet">
+    <h2>Semaine 46</h2>
+
+    <h3>Mardi : Réunion d'équipe et découverte de la collecte d'antibiotiques</h3>
+
+    <div class="fiche">
+      <img src="photos/amoxicilline.jpeg" alt="Amoxicilline">
+      <p>L’amoxicilline est un antibiotique appartenant à la famille des pénicillines. Elle agit en empêchant les bactéries de fabriquer leur paroi protectrice, ce qui entraîne leur destruction. Elle est utilisée pour traiter différentes infections bactériennes, notamment les infections ORL (angines bactériennes, otites, sinusites), respiratoires, dentaires et certaines infections urinaires. Elle est cependant inefficace contre les virus, comme ceux responsables du rhume ou de la grippe.</p>
+    </div>
+
+    <div class="fiche">
+      <img src="photos/amoxicillineacideclav.jpeg" alt="Amoxicilline et acide clavulanique">
+      <p>L’amoxicilline associée à l’acide clavulanique est un antibiotique composé de deux substances actives. L’amoxicilline détruit les bactéries, tandis que l’acide clavulanique bloque certaines enzymes bactériennes appelées bêta-lactamases, capables de rendre les bactéries résistantes à l’amoxicilline. Cette association permet donc d'élargir le spectre d'action de l'antibiotique et de traiter certaines infections causées par des bactéries résistantes à l'amoxicilline seule.</p>
+    </div>
+
+    <!-- ========== PROTOCOLE ========== -->
+    <h3 class="protocole-titre">Protocole : détermination de la CMI en plaque 96 puits (révélation au TTC)</h3>
+
+    <div class="encart">
+      <strong>Principe :</strong> on mesure la concentration minimale inhibitrice (CMI) de chaque antibiotique par microdilution en bouillon. Le TTC (chlorure de 2,3,5-triphényltétrazolium) est réduit par les bactéries vivantes en formazan <span class="rouge">rouge</span> : un puits <span class="rouge">rouge</span> signifie que la souche s'est développée, un puits incolore que sa croissance a été inhibée par l'antibiotique.
+    </div>
+
+    <!-- Choix -->
+    <div class="bloc">
+      <span class="etiquette">Choix</span>
+      <h4>Médicaments et souche</h4>
+      <div class="puces">
+        <span class="puce">Amoxicilline</span>
+        <span class="puce">Ofloxacine</span>
+        <span class="puce">Roxithromycine</span>
+      </div>
+      <p style="margin-top:14px;"><strong>Souche testée :</strong> <em>S. aureus</em></p>
+    </div>
+
+    <!-- Aliquotes -->
+    <h4 class="sous-titre-protocole">Préparation du flacon principal : la méthode des aliquotes</h4>
+    <div class="bloc">
+      <p>Pour éviter d'avoir à trouver plusieurs flacons du même lot chaque mois :</p>
+      <ol>
+        <li>Dès réception du flacon non périmé (à <strong>J0</strong>), répartir tout son contenu en petits tubes stériles (aliquotes) à l'aide d'une seringue stérile.</li>
+        <li>Conserver la majorité des aliquotes dans les conditions normales indiquées sur la notice (température ambiante à l'abri de la lumière, ou réfrigérateur selon le fabricant), <strong>pas au congélateur</strong>.</li>
+     </ol>
+    </div>
+
+    <!-- Manipulation -->
+    <h4 class="sous-titre-protocole">Protocole de manipulation : microdilution en plaque + TTC</h4>
+
+    <!-- Étape 1 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">1</span>
+        <h4>Préparation</h4>
+      </div>
+      <ol>
+        <li>Référencer les flacons (nom, marque, concentration, dates de péremption, numéro de lot).</li>
+        <li>Préparer le bouillon Mueller-Hinton et le répartir stérilement.</li>
+        <li>Reconstituer la solution de TTC.</li>
+        <li>Plaques 96 puits stériles.</li>
+      </ol>
+    </div>
+
+    <!-- Étape 2 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">2</span>
+        <h4>Préparation de l'inoculum<small>À chaque session de test</small></h4>
+      </div>
+      <ol>
+        <li>Régenerer le bouillon de <em>S. aureus</em> dans un bouillon GNO et incuber (24 h à 37°C).</li>
+      </ol>
+    </div>
+
+    <!-- Étape 3 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">3</span>
+        <h4>Dilution des antibiotiques</h4>
+      </div>
+      <ol>
+        <li>Diluer 1g de chaque antibiotique à tester dans des fioles jaugées de 100mL.</li>
+        <li>Réaliser une <strong>gamme de dilutions en cascade </strong> directement dans la plaque.</li>
+        <li>Répéter la gamme pour chaque antibiotique, avec toujours le même volume final par puits (100 µL).</li>
+      </ol>
+    </div>
+
+    <!-- Étape 4 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">4</span>
+        <h4>Plan de plaque et témoins</h4>
+      </div>
+      <p>Proposition de plan :</p>
+      <div class="tableau-scroll">
+        <table class="plaque">
+          <tr><th>Colonnes</th><th>Contenu</th></tr>
+          <tr><td>1 à 10</td><td>Antibiotique en dilutions croissantes + inoculum</td></tr>
+          <tr><td>11</td><td>Témoin de croissance : bouillon + inoculum, sans antibiotique (doit virer au <span class="rouge">rouge</span>)</td></tr>
+        </table>
+      </div>
+      <ul>
+        <li>Chaque test est réalisé en <strong>duplicat</strong> (2 lignes).</li>
+      </ul>
+    </div>
+
+    <!-- Étape 5 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">5</span>
+        <h4>Inoculation et incubation</h4>
+      </div>
+      <ol>
+        <li>Ajouter l'inoculum dans tous les puits.</li>
+        <li>Couvrir la plaque et incuber 24 h à 37 °C.</li>
+      </ol>
+    </div>
+
+    <!-- Étape 6 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">6</span>
+        <h4>Révélation au TTC et lecture</h4>
+      </div>
+      <ol>
+        <li>Ajouter le TTC dans chaque puits.</li>
+        <li>Réincuber 30 min à 37 °C, à l'abri de la lumière.</li>
+        <li><strong>Lecture manuelle :</strong> noter pour chaque puits la couleur, <span class="rouge">rouge</span> (croissance) ou incolore (inhibition).</li>
+     </ol>
+    </div>
+
+    <!-- Étape 7 -->
+    <div class="etape">
+      <div class="etape-tete">
+        <span class="num">7</span>
+        <h4>Interprétation</h4>
+      </div>
+      <ul>
+        <li><strong>CMI :</strong> la plus faible concentration pour laquelle le puits reste incolore (pas de développement de la souche).</li>
+        <li><strong>Fil conducteur principal :</strong> tracer une courbe <em>CMI = f(temps écoulé depuis fabrication/péremption)</em> sur les mois de suivi, pour les aliquotes conservées en conditions normales. Une augmentation de la CMI traduit une perte d'efficacité.</li>
+        <li><strong>Flacon « périmé depuis longtemps » (comparaison complémentaire) :</strong> comparer sa CMI à celle de l'aliquote J0.</li>
+        <li><strong>Catégories S / I / R :</strong> comparer les CMI aux seuils CASFM/EUCAST. Point fort pour le poster : une hausse de CMI, même d'une seule dilution, peut faire changer de catégorie.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SEMAINE 47 -->
+  <section id="s47" class="onglet">
+    <h2>Semaine 47</h2>
+    <h3>Lundi : Préparation de l’inoculum de Staph.aureus</h3>
+    <p>ajouter la video</p>
+    <h3>Mardi : Dilution des antibiotiques et préparation des plaques </h3>
+    <h3>Mercredi : Ajout du TTC, lecture manuelle et avec l’automate (lecteur de plaque) + Réflexion sur le changement de méthode à faire pour vendredi.</h3> 
+    <h3>Vendredi : Répétition de la manipulation </h3>
+
+  </section>
+
+  <!-- SEMAINE 48 -->
+  <section id="s48" class="onglet">
+    <h2>Semaine 48</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINES 49 à 1 -->
+  <section id="s49-1" class="onglet">
+    <h2>Semaines 49 à 1</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 2 -->
+  <section id="s2" class="onglet">
+    <h2>Semaine 2</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 3 -->
+  <section id="s3" class="onglet">
+    <h2>Semaine 3</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 4 -->
+  <section id="s4" class="onglet">
+    <h2>Semaine 4</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINES 5 à 10 -->
+  <section id="s5-10" class="onglet">
+    <h2>Semaines 5 à 10</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 11 -->
+  <section id="s11" class="onglet">
+    <h2>Semaine 11</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 12 -->
+  <section id="s12" class="onglet">
+    <h2>Semaine 12</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 13 -->
+  <section id="s13" class="onglet">
+    <h2>Semaine 13</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINES 14 à 19 -->
+  <section id="s14-19" class="onglet">
+    <h2>Semaines 14 à 19</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 20 -->
+  <section id="s20" class="onglet">
+    <h2>Semaine 20</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+  <!-- SEMAINE 21 -->
+  <section id="s21" class="onglet">
+    <h2>Semaine 21</h2>
+    <h3>Ce qu'on a fait</h3>
+    <p>Écris ici ce qui a été réalisé.</p>
+    <h3>Résultats</h3>
+    <p>Écris ici les résultats.</p>
+  </section>
+
+</main>
+
+<footer>Suivi des expérimentations</footer>
+
+<script>
+  var menu = document.getElementById('menu');
+  var groupe = document.getElementById('groupe-tableau');
+
+  function basculerMenu(e) {
+    e.stopPropagation();
+    menu.classList.toggle('ouvert');
+  }
+
+  function basculerGroupe(e) {
+    e.stopPropagation();
+    groupe.classList.toggle('ouvert');
+  }
+
+  function afficher(id, titre, bouton) {
+    document.querySelectorAll('.onglet').forEach(function (o) { o.classList.remove('visible'); });
+    document.querySelectorAll('.menu-item').forEach(function (b) { b.classList.remove('actif'); });
+    document.getElementById(id).classList.add('visible');
+    bouton.classList.add('actif');
+    document.getElementById('titre-menu').textContent = titre;
+    menu.classList.remove('ouvert');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Ferme le menu quand on clique ailleurs sur la page
+  document.addEventListener('click', function (e) {
+    if (!menu.contains(e.target)) menu.classList.remove('ouvert');
+  });
+</script>
+
+</body>
+</html>
