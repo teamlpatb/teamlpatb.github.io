@@ -285,6 +285,45 @@
     .rouge { color: #b23a3a; font-weight: 500; }
     .tableau-scroll { overflow-x: auto; }
 
+    /* ---------- JOURS DE LA SEMAINE ---------- */
+    .jour {
+      background: var(--beige-clair);
+      border-radius: 22px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .jour-label {
+      display: inline-block;
+      background: var(--terre);
+      color: #fff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .jour h3 {
+      margin: 0 0 6px;
+      font-size: 19px;
+      color: var(--brun);
+    }
+    .jour p { margin: 6px 0 0; }
+    .jour ul { margin: 10px 0 0; padding-left: 22px; }
+    .jour li { margin-bottom: 6px; }
+    .jour li::marker { color: var(--terre); }
+    .jour strong { font-weight: 500; }
+
+    .video-recap {
+      margin-top: 28px;
+      background: var(--beige-clair);
+      border-left: 4px solid var(--terre);
+      border-radius: 0 22px 22px 0;
+      padding: 20px 24px;
+    }
+    .video-recap h3 { margin: 0 0 6px; color: var(--brun); }
+    .video-recap p { margin: 0; }
+
     @media (max-width: 640px) {
       .onglet { padding: 22px 18px; }
       .fiche { flex-direction: column; }
@@ -403,6 +442,18 @@
       <p style="margin-top:14px;"><strong>Souche testée :</strong> <em>S. aureus</em></p>
     </div>
 
+    <!-- Aliquotes -->
+    <h4 class="sous-titre-protocole">Préparation du flacon principal : la méthode des aliquotes</h4>
+    <div class="bloc">
+      <p>Pour éviter d'avoir à trouver plusieurs flacons du même lot chaque mois :</p>
+      <ol>
+        <li>Dès réception du flacon non périmé (à <strong>J0</strong>), répartir tout son contenu en petits tubes stériles (aliquotes) à l'aide d'une seringue stérile.</li>
+        <li>Conserver la majorité des aliquotes dans les conditions normales indiquées sur la notice (température ambiante à l'abri de la lumière, ou réfrigérateur selon le fabricant), <strong>pas au congélateur</strong>.</li>
+        <li>Chaque mois, sortir une aliquote conservée en conditions normales et la tester : cela isole la variable « temps depuis la fabrication/péremption » sans mélanger l'effet de l'exposition à l'air à chaque ouverture.</li>
+        <li>Mettre <strong>une seule aliquote</strong> de côté au congélateur comme témoin de comparaison : elle sert à montrer par contraste que le froid extrême bloque la dégradation, à tester en parallèle de la dernière aliquote « conditions normales » en avril.</li>
+      </ol>
+    </div>
+
     <!-- Manipulation -->
     <h4 class="sous-titre-protocole">Protocole de manipulation : microdilution en plaque + TTC</h4>
 
@@ -413,10 +464,11 @@
         <h4>Préparation</h4>
       </div>
       <ol>
-        <li>Référencer les flacons (nom, marque, concentration, dates de péremption, numéro de lot).</li>
-        <li>Préparer le bouillon Mueller-Hinton et le répartir stérilement.</li>
-        <li>Reconstituer la solution de TTC.</li>
-        <li>Plaques 96 puits stériles.</li>
+        <li>Valider les habilitations biosécurité avec l'enseignant référent (confinement, gestion des déchets biologiques).</li>
+        <li>Référencer les flacons (nom, marque, concentration, dates de péremption, numéro de lot) dans le carnet de bord.</li>
+        <li>Préparer le bouillon Mueller-Hinton (ajusté en cations) et le répartir stérilement.</li>
+        <li>Préparer la solution de TTC (ex. 5 mg/mL dans de l'eau stérile), filtrée et conservée à l'abri de la lumière.</li>
+        <li>Se procurer des plaques 96 puits stériles.</li>
       </ol>
     </div>
 
@@ -427,7 +479,9 @@
         <h4>Préparation de l'inoculum<small>À chaque session de test</small></h4>
       </div>
       <ol>
-        <li>Régenerer le bouillon de <em>S. aureus</em> dans un bouillon GNO et incuber (24 h à 37°C).</li>
+        <li>Prélever quelques colonies de <em>S. aureus</em> sur une culture jeune (18-24 h).</li>
+        <li>Réaliser une suspension en sérum physiologique stérile, ajustée à <strong>0,5 McFarland</strong> (≈ 1,5 × 10⁸ UFC/mL).</li>
+        <li>Diluer dans le bouillon pour obtenir environ <strong>5 × 10⁵ UFC/mL dans chaque puits</strong> au final (ex. dilution au 1/150 avant ajout en plaque).</li>
       </ol>
     </div>
 
@@ -438,9 +492,9 @@
         <h4>Dilution des antibiotiques</h4>
       </div>
       <ol>
-        <li>Diluer 1g de chaque antibiotique à tester dans des fioles jaugées de 100mL.</li>
-        <li>Réaliser une <strong>gamme de dilutions en cascade </strong> directement dans la plaque.</li>
-        <li>Répéter la gamme pour chaque antibiotique, avec toujours le même volume final par puits (100 µL).</li>
+        <li>Préparer une solution mère de l'aliquote du mois dans le bouillon (concentration identique à chaque test sur toute l'année).</li>
+        <li>Réaliser une <strong>gamme de dilutions de raison 2</strong> (ex. 10 concentrations) directement dans la plaque.</li>
+        <li>Répéter la gamme pour chaque antibiotique, avec toujours le même volume final par puits (ex. 100 µL).</li>
       </ol>
     </div>
 
@@ -450,16 +504,18 @@
         <span class="num">4</span>
         <h4>Plan de plaque et témoins</h4>
       </div>
-      <p>Proposition de plan :</p>
+      <p>Proposition de plan (à adapter au vôtre) :</p>
       <div class="tableau-scroll">
         <table class="plaque">
           <tr><th>Colonnes</th><th>Contenu</th></tr>
           <tr><td>1 à 10</td><td>Antibiotique en dilutions croissantes + inoculum</td></tr>
           <tr><td>11</td><td>Témoin de croissance : bouillon + inoculum, sans antibiotique (doit virer au <span class="rouge">rouge</span>)</td></tr>
+          <tr><td>12</td><td>Témoin de stérilité : bouillon seul (doit rester incolore)</td></tr>
         </table>
       </div>
       <ul>
-        <li>Chaque test est réalisé en <strong>duplicat</strong> (2 lignes).</li>
+        <li>Chaque test est réalisé en <strong>triplicat</strong> (3 lignes).</li>
+        <li><strong>Contrôle qualité :</strong> un antibiotique frais non périmé (aliquote J0) testé en parallèle. Si sa CMI est aberrante, le problème vient de la manipulation et non du médicament testé.</li>
       </ul>
     </div>
 
@@ -470,8 +526,8 @@
         <h4>Inoculation et incubation</h4>
       </div>
       <ol>
-        <li>Ajouter l'inoculum dans tous les puits.</li>
-        <li>Couvrir la plaque et incuber 24 h à 37 °C.</li>
+        <li>Ajouter l'inoculum dans tous les puits, sauf le témoin de stérilité.</li>
+        <li>Couvrir la plaque (couvercle ou film) et incuber 18-24 h à 35-37 °C.</li>
       </ol>
     </div>
 
@@ -482,10 +538,12 @@
         <h4>Révélation au TTC et lecture</h4>
       </div>
       <ol>
-        <li>Ajouter le TTC dans chaque puits.</li>
-        <li>Réincuber 30 min à 37 °C, à l'abri de la lumière.</li>
+        <li>Ajouter le TTC dans chaque puits (ex. 10 µL de solution à 5 mg/mL).</li>
+        <li>Réincuber 30 min à 2 h à 37 °C, à l'abri de la lumière.</li>
         <li><strong>Lecture manuelle :</strong> noter pour chaque puits la couleur, <span class="rouge">rouge</span> (croissance) ou incolore (inhibition).</li>
-     </ol>
+        <li><strong>Lecture automatisée :</strong> mesurer la densité optique au lecteur de plaque (longueur d'onde adaptée au formazan, ex. 490-540 nm).</li>
+        <li>Consigner dans un tableau : date de test, antibiotique, aliquote, concentration, résultat (couleur + DO), plaque n°.</li>
+      </ol>
     </div>
 
     <!-- Étape 7 -->
@@ -498,6 +556,7 @@
         <li><strong>CMI :</strong> la plus faible concentration pour laquelle le puits reste incolore (pas de développement de la souche).</li>
         <li><strong>Fil conducteur principal :</strong> tracer une courbe <em>CMI = f(temps écoulé depuis fabrication/péremption)</em> sur les mois de suivi, pour les aliquotes conservées en conditions normales. Une augmentation de la CMI traduit une perte d'efficacité.</li>
         <li><strong>Flacon « périmé depuis longtemps » (comparaison complémentaire) :</strong> comparer sa CMI à celle de l'aliquote J0.</li>
+        <li><strong>Témoin congélation :</strong> comparer en avril la CMI de l'aliquote congelée à celle de la dernière aliquote « conditions normales ». Argument visuel fort pour le poster.</li>
         <li><strong>Catégories S / I / R :</strong> comparer les CMI aux seuils CASFM/EUCAST. Point fort pour le poster : une hausse de CMI, même d'une seule dilution, peut faire changer de catégorie.</li>
       </ul>
     </div>
@@ -506,12 +565,50 @@
   <!-- SEMAINE 47 -->
   <section id="s47" class="onglet">
     <h2>Semaine 47</h2>
-    <h3>Lundi : Préparation de l’inoculum de Staph.aureus</h3>
-    <p>ajouter la video</p>
-    <h3>Mardi : Dilution des antibiotiques et préparation des plaques </h3>
-    <h3>Mercredi : Ajout du TTC, lecture manuelle et avec l’automate (lecteur de plaque) + Réflexion sur le changement de méthode à faire pour vendredi.</h3> 
-    <h3>Vendredi : Répétition de la manipulation </h3>
 
+    <div class="jour">
+      <span class="jour-label">Lundi</span>
+      <h3>Préparation de l’inoculum de <em>Staph. aureus</em></h3>
+      <ul>
+        <li>Prélèvement de 2 gouttes de bouillon de S.aureus.</li>
+        <li>Dilution dans le bouillon pour obtenir l’inoculum final.</li>
+      </ul>
+    </div>
+
+    <div class="jour">
+      <span class="jour-label">Mardi</span>
+      <h3>Dilution des antibiotiques et préparation des plaques</h3>
+      <ul>
+        <li>Préparation des solutions d’antibiotiques à partir des comprimés.</li>
+        <li>Gamme de dilutions réalisée dans les plaques 96 puits.</li>
+        <li>Ajout de l’inoculum et mise en incubation, avec les témoins de croissance.</li>
+      </ul>
+    </div>
+
+    <div class="jour">
+      <span class="jour-label">Mercredi</span>
+      <h3>Ajout du TTC et lecture des plaques</h3>
+      <ul>
+        <li>Ajout du TTC dans les puits : la coloration <strong style="color:#b23a3a;">rouge</strong> indique que la souche s’est développée.</li>
+        <li><strong>Lecture </strong> : observation puits par puits.</li>
+        <li><strong>Réflexion sur le changement de méthode</strong> à appliquer pour vendredi.</li>
+      </ul>
+    </div>
+
+    <div class="jour">
+      <span class="jour-label">Vendredi</span>
+      <h3>Répétition de la manipulation</h3>
+      <p>Nouvelle manipulation avec la méthode modifiée.</p>
+    </div>
+
+    <div class="video-recap">
+      <h3>🎬 Vidéo récapitulative</h3>
+      <p>Pour revoir toutes les étapes de la semaine, visionnez la vidéo récapitulative ci-dessous.</p>
+      <video controls>
+        <source src="videos/videoproto.mp4" type="video/mp4">
+        Ton navigateur ne supporte pas la lecture vidéo.
+      </video>
+    </div>
   </section>
 
   <!-- SEMAINE 48 -->
